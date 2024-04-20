@@ -10,10 +10,11 @@ function Chat() {
     const [currentInput, setCurrentInput] = useState<string>("");
     const { receiver } = useParams<{receiver?: string }>();
     if(!username)  location.href="/";
-
+    
     useEffect(()=> {
         if(!socket){
             socket = io('https://chat-backend-qj8w.onrender.com/', {
+                withCredentials: true,
                 reconnectionDelay: 1000*5, // defaults to 1000
                 reconnectionDelayMax: 1000*10, // defaults to 5000
                 query: { username }
