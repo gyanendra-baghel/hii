@@ -7,6 +7,7 @@ import { Message } from "../@types/Message";
 function Chat() {
     let {username,socket,setSocket,messages,setMessages}=useContext(UserContext);
     const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
+    const [sidebar, setSidebar] = useState("hide");
     const [currentInput, setCurrentInput] = useState<string>("");
     const { receiver } = useParams<{receiver?: string }>();
     if(!username)  location.href="/";
@@ -24,7 +25,7 @@ function Chat() {
                 console.log("Connected: ");
             });
             socket.on('message', (msg:Message)=>{
-                setMessages((prev:Message[])=>[...prev,msg]);
+                 setMessages((prev:Message[])=>[...prev,msg]);
             });
             socket.on('updateUser', (userList: string[]) => {
                 setOnlineUsers(userList);
@@ -52,9 +53,12 @@ function Chat() {
 
     return (
         <main className="chat-container">
-            <div className="chat-sidebar h-full">
+            <button onClick={()=>{ setSidebar(sidebar == "" ? "hide": "") }} className="three-line">🟰</button>
+            <div className={`chat-sidebar h-full ${sidebar}`}>
                 <div className="user-container p-3 rounded-xl">
-                    <Link to="/chat"><h2 className="user-heading font-semibold">{username}</h2></Link>
+                    <div>
+                        <Link to="/chat"><h2 className="user-heading font-semibold">{username}</h2></Link>
+                    </div>
                     <Link to='/logout'><button className="bg-green-800 w-full mt-2 rounded">Logout</button></Link>
                     {onlineUsers.length === 0 && (
                         <p className="text-center mt-5 text-gray-500">Users not Available.</p>

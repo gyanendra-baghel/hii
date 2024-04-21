@@ -59,9 +59,10 @@ header {
 .chat-sidebar {
     width: 25%;
     min-width: 240px;
+    max-width: 300px;
     max-height: 100vh;
-    margin: auto;
-    background: #0b0b0bb2;
+    margin: 0;
+    background: #0b0b0b;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -97,7 +98,10 @@ header {
     height: 100%;
     display: flex;
     flex-direction: column;
-    width: 75%;
+    width: 90%;
+    max-width: 720px;
+    margin:auto;
+    z-index: 50;
 }
 
 .chat-messages {
@@ -161,4 +165,32 @@ header {
     color: #fff;
     border: 0;
     font-size: 17px;
+}
+
+.three-line {
+    display: none;
+}
+
+@media screen and (max-width: 960px) {
+    
+    .chat-sidebar {
+        position: fixed;
+        top:0;
+        left: 0;
+        transition: left 0.8s;
+        z-index: 60;
+    }
+
+    .chat-sidebar.hide {
+        left: -350px;
+    }
+
+    .three-line {
+        display: block;
+        z-index: 100;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+    }
+
 }
